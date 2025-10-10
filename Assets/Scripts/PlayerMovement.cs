@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
 
-    bool startJumping = false;
-
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();

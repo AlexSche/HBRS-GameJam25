@@ -15,6 +15,13 @@ public class PlayerController : MonoBehaviour
         flashlightAction = playerInput.actions.FindActionMap("Player").FindAction("Flashlight");
         flashlightAction.started += SwitchFlashlight;
     }
+
+    void Start()
+    {
+        isFlashlightActive = true;
+        FlashlightEvents.OnFlashLightStatusChanged?.Invoke(isFlashlightActive);
+    }
+
     void OnEnable()
     {
         flashlightAction.Enable();
@@ -29,5 +36,6 @@ public class PlayerController : MonoBehaviour
     {
         isFlashlightActive = !isFlashlightActive;
         flashlightGameObject.SetActive(isFlashlightActive);
+        FlashlightEvents.OnFlashLightStatusChanged?.Invoke(isFlashlightActive);
     }
 }

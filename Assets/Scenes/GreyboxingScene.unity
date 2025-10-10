@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c3fdda1e17d4b4baa0362bae7d2ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashlightGameObject: {fileID: 450435676}
+  flashlightGameObject: {fileID: 1323676393}
 --- !u!143 &125384899
 CharacterController:
   m_ObjectHideFlags: 0
@@ -804,6 +804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 765709208}
+  - component: {fileID: 765709209}
   m_Layer: 0
   m_Name: Flashlight
   m_TagString: Untagged
@@ -830,6 +831,19 @@ Transform:
   - {fileID: 1323676394}
   m_Father: {fileID: 450435677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &765709209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765709207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bccde799b3eb8547a96275725e2924f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSource: {fileID: 1323676393}
 --- !u!1 &777848236
 GameObject:
   m_ObjectHideFlags: 0
