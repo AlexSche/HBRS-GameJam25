@@ -36,11 +36,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput != Vector2.zero)
         {
             moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
-            Debug.Log("Orient Forward :" + orientation.forward);
-            Debug.Log("Orient Right :" + orientation.right);
-            Debug.Log("Move direction :" + moveDirection);
             rb.AddForce(moveDirection.normalized * movementSpeed * 10f, ForceMode.Force);
-            Debug.Log("Move");
         }
         else
         {
