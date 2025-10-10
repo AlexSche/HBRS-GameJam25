@@ -29,7 +29,6 @@ public class ChargingStation : MonoBehaviour
 
     void ChargeBattery()
     {
-        Debug.Log("Can interact: " + isPlayerNextToChargingStation);
         if (isPlayerNextToChargingStation)
         {
             FlashlightEvents.OnChargingFlashlight?.Invoke(true);

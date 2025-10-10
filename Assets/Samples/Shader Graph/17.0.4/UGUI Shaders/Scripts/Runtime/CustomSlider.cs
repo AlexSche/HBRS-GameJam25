@@ -93,6 +93,13 @@ namespace Unity.UI.Shaders.Sample
             }
         }
 
+        public void SetValue(float value)
+        {
+            _value = value;
+            Graphic.SetMaterialDirty();
+            onValueChanged?.Invoke(value);
+        }
+
         Vector2 DirectionVector => FromDirection(direction);
 
         Vector3 Vector => new Vector3(Value, DirectionVector.x, DirectionVector.y);

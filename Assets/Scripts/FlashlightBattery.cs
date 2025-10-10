@@ -92,7 +92,7 @@ public class FlashlightBattery : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             battery -= 1;
-            Debug.Log("Battery: " + battery);
+            FlashlightEvents.OnCurrentBatteryStatus?.Invoke(battery);
             if (Random.Range(0, 15) == 0)
             {
                 FlickerLight();
@@ -106,6 +106,7 @@ public class FlashlightBattery : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
             battery += 1;
+            FlashlightEvents.OnCurrentBatteryStatus?.Invoke(battery);
         }
     }
 
