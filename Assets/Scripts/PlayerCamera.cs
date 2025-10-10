@@ -45,6 +45,7 @@ public class PlayerCamera : MonoBehaviour
         // negative value top - range look up / positive value down - range look down
         xRotation = Mathf.Clamp(xRotation, -50f, 60f);
         handTransform.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        handTransform.transform.rotation = Quaternion.Lerp(handTransform.transform.rotation, Quaternion.Euler(xRotation, yRotation, 0), followingSpeed/2 * Time.deltaTime);
         Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, Quaternion.Euler(xRotation, yRotation, 0), followingSpeed * Time.deltaTime);
         orientation.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }

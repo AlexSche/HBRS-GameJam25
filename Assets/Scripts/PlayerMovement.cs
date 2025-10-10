@@ -9,6 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
     public float runningSpeed;
     public Transform orientation;
+    [Header("Ground")]
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+    private bool isGrounded = true;
+
+    [Header("Private")]
     private Vector3 moveDirection;
     private Rigidbody rb;
     private PlayerInput playerInput;
@@ -24,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded)
+        {
+            Debug.Log("Grounded");
+        }
         MovePlayer();
         SpeedControl();
     }
@@ -34,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput != Vector2.zero)
         {
             moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
+            moveDirection.y = 0;
             rb.AddForce(moveDirection.normalized * movementSpeed * 10f, ForceMode.Force);
         }
         else
