@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float movementSpeed;
     public float runningSpeed;
+    public float jumpHeight = 2f;
+    public float gravity = -9.81f;
     public Transform orientation;
+    private Vector3 velocity;
+
     [Header("Ground")]
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -17,50 +20,47 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Private")]
     private Vector3 moveDirection;
-    private Rigidbody rb;
+    private CharacterController characterController;
     private PlayerInput playerInput;
     private InputAction moveAction;
+    private InputAction jumpAction;
+
+    bool startJumping = false;
 
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindActionMap("Player").FindAction("Move");
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        jumpAction = playerInput.actions.FindActionMap("Player").FindAction("Jump");
+        characterController = GetComponent<CharacterController>();
+        jumpAction.started += Jump;
     }
 
     void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded)
+        if (isGrounded && velocity.y < 0)
         {
-            Debug.Log("Grounded");
+            velocity.y = -2;
         }
         MovePlayer();
-        SpeedControl();
     }
 
     private void MovePlayer()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        if (moveInput != Vector2.zero)
-        {
-            moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
-            moveDirection.y = 0;
-            rb.AddForce(moveDirection.normalized * movementSpeed * 10f, ForceMode.Force);
-        }
-        else
-        {
-            rb.linearVelocity = Vector3.zero;
-        }
+        // if moveInput == Vector2.zero -> with this check I can completly stop all movement of the player!
+        moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
+        characterController.Move(moveDirection * movementSpeed * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
     }
 
-    private void SpeedControl()
+    private void Jump(InputAction.CallbackContext callbackContext)
     {
-        if (rb.maxLinearVelocity > movementSpeed)
+        if (isGrounded)
         {
-            Vector3 limitedVelocity = rb.linearVelocity.normalized * movementSpeed;
-            rb.linearVelocity = new Vector3(limitedVelocity.x, rb.linearVelocity.y, limitedVelocity.z);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
 }
