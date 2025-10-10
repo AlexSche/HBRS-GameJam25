@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class PathTrail : MonoBehaviour
 {
-    public List<Transform> checkpoints;
+    [SerializeField] private List<Transform> checkpoints = new List<Transform>();
+    [SerializeField] private GameObject linePrefab;
     public void DrawLitTrailToCheckpoint()
     {
-        LineRenderer lineRenderer = new LineRenderer();
+        GameObject line = Instantiate(linePrefab);
+        LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         lineRenderer.positionCount = checkpoints.Count;
         lineRenderer.startWidth = 0.1f;
         lineRenderer.endWidth = 0.1f;

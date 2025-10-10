@@ -1,8 +1,11 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PathTrail))]
 public class ChargingStation : MonoBehaviour
 {
     private bool isPlayerNextToChargingStation = false;
+    private bool isFirstUse = true;
+    [SerializeField] private PathTrail pathTrail;
 
     void Start()
     {
@@ -29,6 +32,11 @@ public class ChargingStation : MonoBehaviour
 
     void ChargeBattery()
     {
+        if (isFirstUse)
+        {
+            isFirstUse = false;
+            pathTrail.DrawLitTrailToCheckpoint();
+        }
         if (isPlayerNextToChargingStation)
         {
             FlashlightEvents.OnChargingFlashlight?.Invoke(true);
