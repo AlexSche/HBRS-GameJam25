@@ -6,8 +6,10 @@ public class PlayerCamera : MonoBehaviour
 {
     private PlayerInput playerInput;
     private InputAction lookAction;
-    [SerializeField] private float sensX = 1;
-    [SerializeField] private float sensY = 1;
+    [SerializeField] private float sensX = 50;
+    [SerializeField] private float sensY = 50;
+    [SerializeField] private float followingSpeed = 15;
+    [SerializeField] private Transform handTransform;
     public Transform orientation;
     float xRotation;
     float yRotation;
@@ -42,7 +44,8 @@ public class PlayerCamera : MonoBehaviour
         xRotation -= mouseY;
         // negative value top - range look up / positive value down - range look down
         xRotation = Mathf.Clamp(xRotation, -50f, 60f);
-        Camera.main.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        handTransform.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, Quaternion.Euler(xRotation, yRotation, 0), followingSpeed * Time.deltaTime);
+        orientation.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
 }

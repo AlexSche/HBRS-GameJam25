@@ -1,1 +1,3 @@
-# HBRS-GameJam25
+# Lumen for HBRS-GameJam25
+
+## Controls
