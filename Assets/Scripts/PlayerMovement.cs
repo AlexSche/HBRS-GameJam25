@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float movementSpeed;
+    public float runningSpeed;
     public Transform orientation;
     private Vector3 moveDirection;
     private Rigidbody rb;
