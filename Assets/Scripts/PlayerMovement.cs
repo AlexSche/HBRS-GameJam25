@@ -8,13 +8,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float movementSpeed;
     public Transform orientation;
-    private float horizontalInput;
-    private float verticalInput;
     private Vector3 moveDirection;
     private Rigidbody rb;
     private PlayerInput playerInput;
     private InputAction moveAction;
-    private Vector2 moveInput;
 
     void Awake()
     {
