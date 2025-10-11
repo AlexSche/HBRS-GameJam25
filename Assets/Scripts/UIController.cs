@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private InputActionReference pauseAction;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject ingameMenu;
+    [SerializeField] private GameObject settingsMenu;
     bool isOpen = false;
     void Start()
     {
@@ -40,7 +41,18 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
         audioSource.Play();
         ingameMenu.SetActive(false);
+        settingsMenu.SetActive(false);
         DeactivateCursor();
+    }
+
+    public void OpenSettings()
+    {
+        settingsMenu.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settingsMenu.SetActive(false);
     }
 
     private void ActivateCursor()
