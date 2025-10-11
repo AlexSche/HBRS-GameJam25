@@ -7,8 +7,6 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction flashlightAction;
     private InputAction interactAction;
-    private bool isFlashlightActive = true;
-    [SerializeField] private GameObject flashlightGameObject;
 
     void Awake()
     {
@@ -18,12 +16,6 @@ public class PlayerController : MonoBehaviour
         flashlightAction.started += SwitchFlashlight;
         interactAction.started += Interact;
         interactAction.canceled += StopAllInteraction;
-    }
-
-    void Start()
-    {
-        isFlashlightActive = true;
-        FlashlightEvents.OnFlashLightStatusChanged?.Invoke(isFlashlightActive);
     }
 
     void OnEnable()
@@ -38,9 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void SwitchFlashlight(InputAction.CallbackContext callbackContext)
     {
-        isFlashlightActive = !isFlashlightActive;
-        flashlightGameObject.SetActive(isFlashlightActive);
-        FlashlightEvents.OnFlashLightStatusChanged?.Invoke(isFlashlightActive);
+        FlashlightEvents.OnFlashLightStatusChanged?.Invoke();
     }
 
     void Interact(InputAction.CallbackContext callbackContext)

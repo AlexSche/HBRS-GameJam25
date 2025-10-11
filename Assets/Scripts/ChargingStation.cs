@@ -32,13 +32,13 @@ public class ChargingStation : MonoBehaviour
 
     void ChargeBattery()
     {
-        if (isFirstUse)
-        {
-            isFirstUse = false;
-            pathTrail.DrawLitTrailToCheckpoint();
-        }
         if (isPlayerNextToChargingStation)
         {
+            if (isFirstUse)
+            {
+                isFirstUse = false;
+                pathTrail.DrawLitTrailToCheckpoint();
+            }
             FlashlightEvents.OnChargingFlashlight?.Invoke(true);
         }
     }

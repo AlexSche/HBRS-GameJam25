@@ -13,6 +13,6 @@ public class BatteryUI : MonoBehaviour
 
     public void ChangeSliderValue(float value)
     {
-        customSlider.SetValue(value / 100 + 0.1f);
+        customSlider.SetValue(value / 100);
     }
 }

@@ -9,7 +9,7 @@ public class FlashlightBattery : MonoBehaviour
     private float intensity = 200;
     private float flickeringIntensity = 0f;
     private bool isFlickering = false;
-    private bool isOn;
+    private bool isOn = false;
 
     private Coroutine dechargingCo;
     private Coroutine chargingCo;
@@ -18,8 +18,9 @@ public class FlashlightBattery : MonoBehaviour
     {
         flashlight = lightSource.GetComponent<Light>();
         intensity = flashlight.intensity;
-        isOn = true;
-        FlashlightEvents.OnFlashLightStatusChanged += BatteryLogic;
+        //SwitchBatteryOnOff();
+        lightSource.SetActive(isOn);
+        FlashlightEvents.OnFlashLightStatusChanged += SwitchBatteryOnOff;
         FlashlightEvents.OnChargingFlashlight += ChargeBattery;
     }
 
@@ -40,7 +41,6 @@ public class FlashlightBattery : MonoBehaviour
         }
         else
         {
-            isOn = true;
             if (!isFlickering)
             {
                 flashlight.intensity = intensity;
@@ -48,16 +48,19 @@ public class FlashlightBattery : MonoBehaviour
         }
     }
 
-    void BatteryLogic(bool isActive)
+    void SwitchBatteryOnOff()
     {
-        if (isActive)
+        isOn = !isOn;
+        lightSource.SetActive(isOn);
+        if (isOn)
         {
-            if (isOn) flashlight.intensity = intensity;
+            flashlight.intensity = intensity;
             dechargingCo = StartCoroutine(DechargeBatteryCo());
         }
         else
         {
-            StopCoroutine(dechargingCo);
+            if (dechargingCo != null) StopCoroutine(dechargingCo);
+            dechargingCo = null;
         }
     }
 
