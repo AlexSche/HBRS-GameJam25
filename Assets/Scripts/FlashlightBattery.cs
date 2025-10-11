@@ -18,8 +18,7 @@ public class FlashlightBattery : MonoBehaviour
     {
         flashlight = lightSource.GetComponent<Light>();
         intensity = flashlight.intensity;
-        //SwitchBatteryOnOff();
-        lightSource.SetActive(isOn);
+        SwitchBatteryOnOff();
         FlashlightEvents.OnFlashLightStatusChanged += SwitchBatteryOnOff;
         FlashlightEvents.OnChargingFlashlight += ChargeBattery;
     }
@@ -51,6 +50,7 @@ public class FlashlightBattery : MonoBehaviour
     void SwitchBatteryOnOff()
     {
         isOn = !isOn;
+        AudioManager.instance.PlaySoundFXClip(AudioSounds.instance.BatteryOnOff, transform.position);
         lightSource.SetActive(isOn);
         if (isOn)
         {
@@ -69,6 +69,10 @@ public class FlashlightBattery : MonoBehaviour
         if (!isFlickering)
         {
             isFlickering = true;
+            Vector3 followingPos = transform.position;
+            followingPos.x -= 10;
+            followingPos.z -= 10;
+            AudioManager.instance.PlayRandomSoundFXClip(AudioSounds.instance.Rise, followingPos);
             StartCoroutine(FlickeringLightCo());
         }
     }
@@ -108,6 +112,7 @@ public class FlashlightBattery : MonoBehaviour
         while (battery < 100)
         {
             yield return new WaitForSeconds(0.1f);
+            AudioManager.instance.PlaySoundFXClip(AudioSounds.instance.ChargingBattery, transform.position);
             battery += 1;
             FlashlightEvents.OnCurrentBatteryStatus?.Invoke(battery);
         }
@@ -120,8 +125,10 @@ public class FlashlightBattery : MonoBehaviour
         {
             flashlight.intensity = flickeringIntensity;
             waiting = Random.Range(0.1f, 0.6f);
+            AudioManager.instance.PlaySoundFXClip(AudioSounds.instance.BatteryOnOff, transform.position);
             yield return new WaitForSeconds(waiting);
             flashlight.intensity = intensity;
+            AudioManager.instance.PlaySoundFXClip(AudioSounds.instance.BatteryOnOff, transform.position);
             waiting = Random.Range(0.1f, 0.6f);
             yield return new WaitForSeconds(waiting);
         }
