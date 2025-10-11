@@ -17,7 +17,7 @@ public class PathTrail : MonoBehaviour
             lineRenderer.SetPosition(i, checkpoints[i].transform.position);
         }
 
-        DrawLitTrailToCheckpoints(4f);
+        DrawLitTrailToCheckpoints(10f);
     }
 
     public void DrawLitTrailToCheckpoints(float yOffset)
@@ -25,8 +25,8 @@ public class PathTrail : MonoBehaviour
         GameObject line = Instantiate(linePrefab);
         LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         lineRenderer.positionCount = checkpoints.Count;
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
+        lineRenderer.startWidth = 0.6f;
+        lineRenderer.endWidth = 2f;
         for (int i = 0; i < checkpoints.Count; i++)
         {
             Vector3 offsetPosition = checkpoints[i].transform.position;
