@@ -1080,6 +1080,7 @@ MonoBehaviour:
   rb: {fileID: 2325643605647680288}
   endScenePosition: {fileID: 0}
   door: {fileID: 7361591918040341873}
+  safety: {fileID: 0}
   isWorking: 0
 --- !u!54 &2325643605647680288
 Rigidbody:

@@ -6,11 +6,13 @@ public class ChargingStation : MonoBehaviour
     private bool isPlayerNextToChargingStation = false;
     private bool isFirstUse = true;
     [SerializeField] private PathTrail pathTrail;
+    [SerializeField] private GameObject chargingLight;
 
     void Start()
     {
         PlayerEvents.OnPlayerInteract += ChargeBattery;
         PlayerEvents.OnPlayerStoppedInteracting += StopCharging;
+        GameEvents.OnGameFinished += ShowStatus;
     }
 
     void OnTriggerEnter(Collider collision)
@@ -38,6 +40,7 @@ public class ChargingStation : MonoBehaviour
             {
                 isFirstUse = false;
                 pathTrail.DrawLitTrailToCheckpoint();
+                chargingLight.SetActive(true);
             }
             FlashlightEvents.OnChargingFlashlight?.Invoke(true);
         }
@@ -46,5 +49,15 @@ public class ChargingStation : MonoBehaviour
     void StopCharging()
     {
         FlashlightEvents.OnChargingFlashlight?.Invoke(false);
+    }
+
+    void ShowStatus()
+    {
+        if (isFirstUse)
+        {
+            chargingLight.SetActive(true);
+            chargingLight.GetComponent<Light>().color = Color.red;
+            pathTrail.DrawRedLitTrailToCheckpoint();
+        }
     }
 }
