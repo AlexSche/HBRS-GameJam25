@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.UI.Shaders.Sample;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerCamera : MonoBehaviour
@@ -45,8 +46,16 @@ public class PlayerCamera : MonoBehaviour
         // negative value top - range look up / positive value down - range look down
         xRotation = Mathf.Clamp(xRotation, -50f, 60f);
         handTransform.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        handTransform.transform.rotation = Quaternion.Lerp(handTransform.transform.rotation, Quaternion.Euler(xRotation, yRotation, 0), followingSpeed/2 * Time.deltaTime);
+        handTransform.transform.rotation = Quaternion.Lerp(handTransform.transform.rotation, Quaternion.Euler(xRotation, yRotation, 0), followingSpeed / 2 * Time.deltaTime);
         Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, Quaternion.Euler(xRotation, yRotation, 0), followingSpeed * Time.deltaTime);
         orientation.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+    }
+
+    public void ChangeSensitivity(CustomSlider slider)
+    {
+        float value = slider.Value * 100;
+        if (value <= 0) value = 1;
+        sensX = value;
+        sensY = value;
     }
 }
