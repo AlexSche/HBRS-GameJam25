@@ -37201,13 +37201,11 @@ MonoBehaviour:
   <BatteryOnOff>k__BackingField: {fileID: 8300000, guid: bc0ccb14c46ce7647b5f5ff25d047263, type: 3}
   <Rise>k__BackingField:
   - {fileID: 8300000, guid: fdd4575473bbc1c45a4887ac4611ff20, type: 3}
-  - {fileID: 8300000, guid: fc0ad097619f4c648adffc550e9abf93, type: 3}
   - {fileID: 8300000, guid: ec233238754e53a40b79d63453c7226c, type: 3}
   - {fileID: 8300000, guid: 915788ef5b0702e4fab7cc5d8c8ac908, type: 3}
   - {fileID: 8300000, guid: 43cf332b01d4f5a4c87a866a86162202, type: 3}
   - {fileID: 8300000, guid: 985a6dc16c7f7524f823ad8c16f7a188, type: 3}
   - {fileID: 8300000, guid: cc6b65882b82c37439c45c7456276839, type: 3}
-  - {fileID: 8300000, guid: dff909d98ab7e0042a7fa1ff348daed8, type: 3}
   - {fileID: 8300000, guid: 2b592070832c1d043a25e1378d5a38d1, type: 3}
   - {fileID: 8300000, guid: 2c773b76a3e4f374a999032a1d8a4785, type: 3}
 --- !u!1 &1846839214

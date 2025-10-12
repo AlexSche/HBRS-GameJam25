@@ -32,9 +32,6 @@ public class AudioManager : MonoBehaviour
     {
         AudioSource audioSource = Instantiate(soundFXObject, position, Quaternion.identity);
         audioSource.clip = audioClip[UnityEngine.Random.Range(0, audioClip.Length)];
-        float sfxVolume = 1f;
-        audioMixer.GetFloat("SfxVolume", out sfxVolume);
-        audioSource.volume = sfxVolume;
         float clipLength = audioSource.clip.length;
         audioSource.Play();
         Destroy(audioSource.gameObject, clipLength);
@@ -56,7 +53,9 @@ public class AudioManager : MonoBehaviour
     private static float MapToDbValue(float value)
     {
         // 0 - 1 isn't working we need -80 to 0 (0 is -80 and 1 is 0)
-        float correctedValue = -80 + (0 - (-80)) * value;
+        float min = -40;
+        float max = 0;
+        float correctedValue = min + (max - min) * value;
         return correctedValue;
     }
 }
