@@ -81,12 +81,16 @@ public class FlashlightBattery : MonoBehaviour
     {
         if (chargingCo == null && isCharging)
         {
+            // start playing looping sound
+            AudioManager.instance.PlaySoundFXClipLoop(AudioSounds.instance.ChargingBattery, transform.position);
             chargingCo = StartCoroutine(ChargeBatteryCo());
         }
         else
         {
             if (chargingCo != null)
             {
+                // stop playing looping sound
+                AudioManager.instance.StopSoundFXClipLoop();
                 StopCoroutine(chargingCo);
                 chargingCo = null;
             }
@@ -112,7 +116,6 @@ public class FlashlightBattery : MonoBehaviour
         while (battery < 100)
         {
             yield return new WaitForSeconds(0.1f);
-            AudioManager.instance.PlaySoundFXClip(AudioSounds.instance.ChargingBattery, transform.position);
             battery += 1;
             FlashlightEvents.OnCurrentBatteryStatus?.Invoke(battery);
         }

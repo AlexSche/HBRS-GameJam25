@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource soundFXObject;
     public static AudioManager instance { get; private set; }
+    private AudioSource loopedAudio;
 
     private void Awake()
     {
@@ -22,7 +23,6 @@ public class AudioManager : MonoBehaviour
     {
         AudioSource audioSource = Instantiate(soundFXObject, position, Quaternion.identity);
         audioSource.clip = audioClip;
-        //audioSource.volume = sfxVolume;
         float clipLength = audioSource.clip.length;
         audioSource.Play();
         Destroy(audioSource.gameObject, clipLength);
@@ -36,6 +36,22 @@ public class AudioManager : MonoBehaviour
         audioSource.Play();
         Destroy(audioSource.gameObject, clipLength);
     }
+
+    public void PlaySoundFXClipLoop(AudioClip audioClip, Vector3 position)
+    {
+        loopedAudio = Instantiate(soundFXObject, position, Quaternion.identity);
+        loopedAudio.clip = audioClip;
+        float clipLength = loopedAudio.clip.length;
+        loopedAudio.loop = true;
+        loopedAudio.Play();
+    }
+    public void StopSoundFXClipLoop()
+    {
+        loopedAudio.Stop();
+        Destroy(loopedAudio.gameObject);
+    }
+
+
 
     public void SetMasterVolume(CustomSlider slider)
     {
