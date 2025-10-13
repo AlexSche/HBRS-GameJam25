@@ -53,7 +53,7 @@ public class PlayerCamera : MonoBehaviour
 
     public void ChangeSensitivity(CustomSlider slider)
     {
-        float value = slider.Value * 100;
+        float value = slider.Value * 25;
         if (value <= 0) value = 1;
         sensX = value;
         sensY = value;
